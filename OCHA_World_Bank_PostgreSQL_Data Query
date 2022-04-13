@@ -1,0 +1,62 @@
+# The first step was to download the data from the OCHA database 
+
+https://data.humdata.org/dataset/world-bank-combined-indicators-for-uganda
+
+# Once complete, I began to create the database in PostgreSQL
+
+CREATE DATABASE "World Bank Uganda"
+    WITH 
+    OWNER = postgres
+    ENCODING = 'UTF8'
+    CONNECTION LIMIT = -1;
+    
+# I then moved to create the tables in PostgreSQL
+
+# 1st table created
+CREATE TABLE public."Indic"
+(
+    "Country Name" text,
+    "Country ISO3" text,
+    "Year" date,
+    "Indicator Name" text,
+    "Indicator Code" text,
+    "Value" numeric,
+    PRIMARY KEY ("Country Name")
+);
+
+ALTER TABLE IF EXISTS public."Indic"
+    OWNER to postgres;
+    
+#2nd table created
+CREATE TABLE public.qc_indicators_uga
+(
+    "Country ISO3" text,
+    "Year" numeric,
+    "Indicator Code" text,
+    "Value" bigint
+);
+
+ALTER TABLE IF EXISTS public.qc_indicators_uga
+    OWNER to postgres;
+    
+# I then had to import the data to begin quering the data
+
+Select * 
+From "Indicators.uga"
+
+Select * 
+From "Indicators.uga"
+Order by "Year"; 
+
+# I then carried out some descriptive statistics on the data
+
+Select distinct("Indicator_Name")
+From "Indicators.uga"
+
+Select min("Year")
+From "Indicators.uga"
+
+Select max("Year")
+From "Indicators.uga"
+
+
